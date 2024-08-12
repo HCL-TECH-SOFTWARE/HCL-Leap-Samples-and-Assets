@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceDescription>
+	<id>EchoValueTransport</id>
+	<defaultLocale>en-us</defaultLocale>
+	<transportId>EchoValueTransport</transportId>
+	<name xml:lang="en-us">Echo Value Service</name>
+	<description xml:lang="en-us">Returns the same value passed to it.  Used primarily for assigning a user to a role using the Assign User to Role service.  This service enables the user to assign a user from an email field on the form.</description>
+	<inbound>
+		<parameters>
+			<parameter>
+				<id>input</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Input</name>
+				<description xml:lang="en-us"></description>
+				<mandatory>true</mandatory>
+			</parameter>
+		</parameters>
+		<serviceMapping>
+			<mapping>
+				<mapping target="transport:input" source="parameter:input"/>
+			</mapping>
+		</serviceMapping>
+	</inbound>
+	<outbound>
+		<parameters>			
+			<parameter>
+				<id>output</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Output</name>
+				<description xml:lang="en-us"></description>
+			</parameter>					
+		</parameters>
+		<serviceMapping>
+			<mapping>
+				<mapping source="transport:output" target="parameter:output"/>
+			</mapping>
+		</serviceMapping>
+	</outbound>
+</serviceDescription>
