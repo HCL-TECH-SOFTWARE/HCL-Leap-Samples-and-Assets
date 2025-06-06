@@ -1,0 +1,13 @@
+{
+  "draft_ownerid" : "",
+  "flowState" : "ST_Start",
+  "pressedButton" : "S_Submit",
+  "F_FirstName" : "Charlie",
+  "F_LastName" : "Delta",
+  "F_DateOrBirth" : "1975-04-05",
+  "F_Address" : "Someplace",
+  "F_City" : "That City",
+  "F_StateProv" : "California",
+  "F_DropDown1" : "USA",
+  "F_WhichProducts" : "Forms__#__Forms Experience Builder"
+}
