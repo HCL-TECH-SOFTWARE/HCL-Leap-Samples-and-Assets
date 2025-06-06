@@ -12,7 +12,7 @@ SampleMain.java
 
 LeapAPIHelper.jar
 
-2. Download the Sample FEB Application.  The application was built in 8.6.4.1 and cannot be imported to an older FEB version.  When you import the application, choose to import with data, it contains a sample record that will be used in the example below.
+2. Download the Sample LEAP Application.  The application was built in 8.6.4.1 and cannot be imported to an older LEAP version.  When you import the application, choose to import with data, it contains a sample record that will be used in the example below.
 
 RESTAPIExample.nitro_s
 
@@ -22,21 +22,16 @@ RestApi_InputFiles.zip
 
 ## How to Use the API
 
-1. Establish a connection to the URL (either secure or regular)
+1. Establish an instance of the LeapHelperImpl class that contains the helper functions.
 
 ```
-URL url = new URL(theUrl); HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+LeapHelperImpl apiHelper = new LeapHelperImpl("https://leapServer/apps-basic", usr, pwd, "12345");
 ```
 
-2. Set connection properties (headers, authorization, method, etc)
+2. Call the function desired function, passing it the critical information (i.e. app id, form id, record id, etc).
 
 ```
-secureUrlConnection.setSSLSocketFactory(getSSLContext(SSLProtocol).getSocketFactory());                
-secureUrlConnection.setHostnameVerifier(getHostNameVerifier());
-secureUrlConnection.setRequestMethod(method);                        
-secureUrlConnection.setRequestProperty("Accept", returnFormat);
-secureUrlConnection.setRequestProperty("Content-Type", returnFormat);
-secureUrlConnection.setRequestProperty("Authorization", "Basic " + getEncodedString(user, pwd));
+LeapHelperResponse lhr = apiHelper.retrieveRecord("03739889-76ba-4231-825d-74831e521c45", "F_Form1", "d1a119ab-0c63-4648-8bbc-4b5dd9360943", "application/
 ```
 
 3. (optional) Write content to be sent along with the URL request
@@ -46,49 +41,17 @@ secureUrlConnection.setRequestProperty("Authorization", "Basic " + getEncodedStr
 5. Close the connection
 
 
-To simplify the code and boost understanding, I write all the REST API responses to temporary files and I also read in the posted content from temporary files as well.  In each example that I go through I:
-
-1. Establish an instance of the LeapHelperImpl class that contains the helper functions.
-
-```
-LeapHelperImpl apiHelper = new LeapHelperImpl("https://leapServer/apps-basic", usr, pwd, "12345");
-```
-
-2. I define the location of the file that will contain the response from calling the REST URL.
-
-```
-f = "c:\\temp\\LEAPREST_RETRIEVE_OUT.txt";
-```
-
-3. Call the function desired function, passing it the critical information (i.e. app id, form id, record id, etc).
-
-```
-LeapHelperResponse lhr = apiHelper.retrieveRecord("03739889-76ba-4231-825d-74831e521c45", "F_Form1", "d1a119ab-0c63-4648-8bbc-4b5dd9360943", "application/
-```
-
-4. I print out the HTTP response code and response message.
-  
-```
-System.out.println(lhr.responseCode);
-```
-
-5. I print the response to a file.
-  
-```
-apiHelper.printStreamToFile(new StringBufferInputStream(lhr.responseJSON.toString()), f);
-```
-
 ### Retrieve a Single Record
 
 This REST URL will retrieve all the data for a specific form submission.  The IDs supplied are the ones for the provided sample application and it will return a valid record.
 
 ```
 f = "c:\\temp\\LEAPREST_RETRIEVE_OUT.txt";
-REST_URL = "http://localhost:9081/forms-basic/secure/org/data/03739889-76ba-4231-825d-74831e521c45/F_Form1/d1a119ab-0c63-4648-8bbc-4b5dd9360943";
 LeapHelperResponse lhr = apiHelper.retrieveRecord("03739889-76ba-4231-825d-74831e521c45", "F_Form1", "d1a119ab-0c63-4648-8bbc-4b5dd9360943", LeapHelperReturnFormat.JSON);
 System.out.println(lhr.responseCode);
       
 try {
+  // do something with the response
   apiHelper.printStreamToFile(new StringBufferInputStream(lhr.responseJSON.toString()), f);
 } catch (IOException e) {
 
@@ -96,7 +59,7 @@ try {
 }
 ```
 
-For you to test this code against your own local FEB you would have to modify a few things:
+For you to test this code against your own local LEAP you would have to modify a few things:
 
 1. The server host name and port (optional)
 
@@ -126,7 +89,8 @@ LeapHelperResponse lhr = apiHelper.listRecords("03739889-76ba-4231-825d-74831e52
 System.out.println(lhr.responseCode);
  
 try {
-    apiHelper.printStreamToFile(new StringBufferInputStream(lhr.responseJSON.toString()), f);
+  // do something with the response
+  apiHelper.printStreamToFile(new StringBufferInputStream(lhr.responseJSON.toString()), f);
 } catch (IOException e) {
     e.printStackTrace();
 }
@@ -145,7 +109,8 @@ LeapHelperResponse lhr = apiHelper.submitRecord("03739889-76ba-4231-825d-74831e5
 System.out.println(lhr.responseCode);
 
 try {
-    apiHelper.printStreamToFile(new StringBufferInputStream(lhr.responseJSON.toString()), f);
+  // do something with the response
+  apiHelper.printStreamToFile(new StringBufferInputStream(lhr.responseJSON.toString()), f);
 } catch (IOException e) {
     e.printStackTrace();
 }
@@ -164,7 +129,8 @@ LeapHelperResponse lhr = apiHelper.updateRecord("03739889-76ba-4231-825d-74831e5
 System.out.println(lhr.responseCode);
  
 try {
-    apiHelper.printStreamToFile(new StringBufferInputStream(lhr.responseJSON.toString()), f);
+  // do something with the response
+  apiHelper.printStreamToFile(new StringBufferInputStream(lhr.responseJSON.toString()), f);
 } catch (IOException e) {
     e.printStackTrace();
 }
@@ -182,7 +148,7 @@ The extra addition to this request is content that needs to be posted to the ser
 
 4. Specify the ID of the button that is being pressed (pressedButton)
 
-A file has been provided (LEAPREST_UPDATE_IN.txt) that can be used to update the record in the sample FEB application.
+A file has been provided (LEAPREST_UPDATE_IN.txt) that can be used to update the record in the sample LEAP application.
 
 ### Delete a Record
 
@@ -195,12 +161,13 @@ LeapHelperResponse lhr = apiHelper.deleteRecord("03739889-76ba-4231-825d-74831e5
  
 System.out.println(lhr.responseCode);
 try {
-    apiHelper.printStreamToFile(new StringBufferInputStream(lhr.responseJSON.toString()), f);
+  // do something with the response
+  apiHelper.printStreamToFile(new StringBufferInputStream(lhr.responseJSON.toString()), f);
 } catch (IOException e) {
     e.printStackTrace();
 }
 ```
 
-We have now gone through all the operations and you should have a pretty good idea of how to now interact with the FEB REST API from Java code.  Now a new wide world is open to you as you want to integrate FEB with existing systems or further enhance your applications with custom code.
+We have now gone through all the operations and you should have a pretty good idea of how to now interact with the LEAP REST API from Java code.  Now a new wide world is open to you as you want to integrate LEAP with existing systems or further enhance your applications with custom code.
 
-One example I can think of is a routine that pulls FEB records, checks how long they have been in a certain stage and then sends a notification to the owner (next actor) if longer then desired.  There are so many cool things that you can do once you know how to interact with the FEB API.
+One example I can think of is a routine that pulls LEAP records, checks how long they have been in a certain stage and then sends a notification to the owner (next actor) if longer then desired.  There are so many cool things that you can do once you know how to interact with the LEAP API.
