@@ -67,7 +67,7 @@ Initial deployment
 
 I have included **5 different service description XML files**.  There is a generic service that enables the form designer to perform all the database options, then there is a service configuration file for each of the individual services; select, insert, update and delete.  It demonstrates which parameters are applicable for each service.
 
- **ServiceCatalogSource** - I have also included an example service catalog which would be a way to group all the services together, rather then them all appearing under the General category.  This catalog will not be usable as-is since it is specific to my local environment.  I am providing the source files so that you could import it directly into your development IDE. Once you import the project, you can update the contained XML files and then create the JAR and deploy it to your FEB.
+**ServiceCatalogSource** - I have also included an example service catalog which would be a way to group all the services together, rather then them all appearing under the General category.  This catalog will not be usable as-is since it is specific to my local environment.  I am providing the source files so that you could import it directly into your development IDE. Once you import the project, you can update the contained XML files and then create the JAR and deploy it to your FEB.
 
 ## Extension Variables
 
@@ -107,30 +107,29 @@ The port of the database server. (i.e. 50000)
 
 The alias for the user that should be used to connect to the database. Note: You can configure this in the WAS Admin Console:
 
-    - Security...Global Security
-    - Java Authentication...J2C Authentication Data...
-    - New...Enter the Alias, username and password
+- Security...Global Security
+- Java Authentication...J2C Authentication Data...
+- New...Enter the Alias, username and password
 	
-**assign_<columnName>**
+**assign_columnName**
 
-    Defines the columns that will be used in the assignment clause of applicable SQL queries. For example, creating the following parameters assign_name, assign_age would result in :
+Defines the columns that will be used in the assignment clause of applicable SQL queries. For example, creating the following parameters assign_name, assign_age would result in :
 
-    Select name, age from person
+Select name, age from person
 
-    If you don't supply any then * will be used for the query:
+If you don't supply any then * will be used for the query:
 
-    ```Select * from person```
+```Select * from person```
 
-**where_<columnName>**
+**where_columnName**
 
 Defines the columns that will be used in the where clause of applicable SQL queries. For example, creating the following parameters where_name would result in:
 
 ```Select * where name = <value>```
 
-!!!note
-Any parameter that has a value will automatically be added to the transport outbound parameter list.  So if you want to return the values of the where parameters as single items outside of the result set then add individual outbound parameters to your outbound mapping. (Added in v 1.3)
+**Note:** Any parameter that has a value will automatically be added to the transport outbound parameter list.  So if you want to return the values of the where parameters as single items outside of the result set then add individual outbound parameters to your outbound mapping. (Added in v 1.3)
 
-**whereOp_<columnName>**
+**whereOp_columnName**
 
 Valid values are LIKE (Added in v1.5), STARTSWITH, and IN (Added in v1.7).  Only specify this for the column name if you want to use wild card (LIKE '%x%') instead of an equality (=) search.
 
@@ -167,7 +166,7 @@ Valid values are true or false, default is false. If true, the parameters that a
 
 ### Output
 
-**<columnName>**
+**columnName**
 
 Each column of the result set will be provided (in uppercase) as an output parameter.
 
@@ -208,45 +207,46 @@ The SQL error code, only returned if the SQL query fails.
 
 2. Modify the xml file (create additional ones) for the database you want to connect to.
 
-- Modify the xml id and service name (replace tableName with the name of the table you are connecting to) :
-    ```
-    <id>DatabaseTransport-Sample-tableName</id>
-    <defaultLocale>en-us</defaultLocale>
-    <transportId>com.ibm.support.examples.services.DatabaseTransport.id</transportId>
-    <name xml:lang="en-us">DatabaseTransport - tableName</name>
-    ```
-- Add the columns that can be searched (returned)
-- Add any columns that can be used in "where" clauses
-- Modify the DB specific settings: type, name, table name, server, port, access
+  - Modify the xml id and service name (replace tableName with the name of the table you are connecting to) :
+  ```xml
+  <id>DatabaseTransport-Sample-tableName</id>
+  <defaultLocale>en-us</defaultLocale>
+  <transportId>com.ibm.support.examples.services.DatabaseTransport.id</transportId>
+  <name xml:lang="en-us">DatabaseTransport - tableName</name>
+  ```
+  - Add the columns that can be searched (returned)
+  - Add any columns that can be used in "where" clauses
+  - Modify the DB specific settings: type, name, table name, server, port, access
+
 3. Copy the xml file(s) into the ServiceCatalog\1 directory
 
 4. After about 1 minute the services should appear in your FEB application, restart is not required.
 
 5. Create a DataSource for your database within WebSphere Administration Console
 
-- Log in to the WAS Admin console.
-- Navigate to Resources...JDBC...Data sources.
-- Set the scope by selecting from the dropdown and click New.
-- Enter the name for the data source (i.e. My DB2 database)
-- Enter the JNDI name (i.e. jdbc/SampleDB) and click Next.
-- If you have an existing JDBC provider for the database you are connecting to then select it, otherwise select Create new JDBC provider and click Next.
-- Select the Database Type, Provider Type, Implementation Type, provide it a name and click Next.
-- Specify the location on your server for the database driver (typically a jar file) and click Next.
-- Provide the database name, server name, port and driver type. Click Next.
-- Click Next (we will create the alias in the next step).
-- Click Finish,
-- Click Save to apply changes to server.
+  - Log in to the WAS Admin console.
+  - Navigate to Resources...JDBC...Data sources.
+  - Set the scope by selecting from the dropdown and click New.
+  - Enter the name for the data source (i.e. My DB2 database)
+  - Enter the JNDI name (i.e. jdbc/SampleDB) and click Next.
+  - If you have an existing JDBC provider for the database you are connecting to then select it, otherwise select Create new JDBC provider and click Next.
+  - Select the Database Type, Provider Type, Implementation Type, provide it a name and click Next.
+  - Specify the location on your server for the database driver (typically a jar file) and click Next.
+  - Provide the database name, server name, port and driver type. Click Next.
+  - Click Next (we will create the alias in the next step).
+  - Click Finish,
+  - Click Save to apply changes to server.
 
 6. Create J2C Authentication Alias for the user that will be used to connect to the datasource.
 
-- Click the link for the newly created datasource.
-- Click JAAS - J2c authentication data (on the right side of the page)
-- Click New.
-- Provide the Alias, User ID, Password and click OK.
-- Click Save to apply changes to server.
-- Click the link at the top of the page to go back to the main page for your datasource.  Under Security settings select the alias that you just created in the Component-managed authentication alias.  Click OK.
-- Click Save to apply changes to server.
-- Click the check next to the datasource and click Test Connection to verify that you can connect to the database.
+  - Click the link for the newly created datasource.
+  - Click JAAS - J2c authentication data (on the right side of the page)
+  - Click New.
+  - Provide the Alias, User ID, Password and click OK.
+  - Click Save to apply changes to server.
+  - Click the link at the top of the page to go back to the main page for your datasource.  Under Security settings select the alias that you just created in the Component-managed authentication alias.  Click OK.
+  - Click Save to apply changes to server.
+  - Click the check next to the datasource and click Test Connection to verify that you can connect to the database.
 
 7. For troubleshooting, add the trace string com.ibm.support.examples.*=finest to the WebSphere instance.
 
@@ -254,48 +254,49 @@ The SQL error code, only returned if the SQL query fails.
 
 1. Using Select.
 
-Create a service description and find the Database Transport - tableName
-Define the columns that you want to be returned by the query. If you do not link any "assign" inputs then "*" will be used in the query.
+  - Create a service description and find the Database Transport - tableName
+  - Define the columns that you want to be returned by the query. If you do not link any "assign" inputs then "*" will be used in the query.
 
-<mapping target="transport:assign_firstname" source="constant:colSelect"/>
-<mapping target="transport:assign_lastname" source="constant:colSelect"/>
-<mapping target="transport:assign_email" source="constant:colSelect"/>
+  ```xml
+  <mapping target="transport:assign_firstname" source="constant:colSelect"/>
+  <mapping target="transport:assign_lastname" source="constant:colSelect"/>
+  <mapping target="transport:assign_email" source="constant:colSelect"/>
+  ```
 
-!!!note 
-  In this example we map the source to a constant of "1" which is one way of making sure the parameters are used in the query.  The other approach is to use the new parameter called "includeBlankValues", which will force all the "assign_" parameters to be recognized when the SQL query is constructed.
+  **Note:** In this example we map the source to a constant of "1" which is one way of making sure the parameters are used in the query.  The other approach is to use the new parameter called "includeBlankValues", which will force all the "assign_" parameters to be recognized when the SQL query is constructed.
 
-Link any "where" inputs that you might want to use:
+  - Link any "where" inputs that you might want to use:
 
-```
-<mapping target="transport:where_lastname" source="parameter:where_lastname"/>
-<mapping target="transport:whereOp_lastname" source="parameter:whereOp_lastname"/>
-<mapping target="transport:where_firstname" source="parameter:where_firstname"/>
-<mapping target="transport:whereOp_firstname" source="parameter:whereOp_firstname"/>
-```
-- The service returns a list, link the outputs to a list object (dropdown, select one/many or table)
-- Setup how the service will be called (i.e. on button click, on form load, on value change of an item, etc)
-- The service returns the query results and true/false
+  ```xml
+  <mapping target="transport:where_lastname" source="parameter:where_lastname"/>
+  <mapping target="transport:whereOp_lastname" source="parameter:whereOp_lastname"/>
+  <mapping target="transport:where_firstname" source="parameter:where_firstname"/>
+  <mapping target="transport:whereOp_firstname" source="parameter:whereOp_firstname"/>
+  ```
+  - The service returns a list, link the outputs to a list object (dropdown, select one/many or table)
+  - Setup how the service will be called (i.e. on button click, on form load, on value change of an item, etc)
+  - The service returns the query results and true/false
 
 2. Using Insert
 
-- Create a service description and find the Database Transport - tableName
-- The "assign" inputs must be provided as they will determine the columns/values that are updated and they should link to fields on your form
-"where" inputs are not applicable to insert
-- The service returns the number of rows affected and true/false
+  - Create a service description and find the Database Transport - tableName
+  - The "assign" inputs must be provided as they will determine the columns/values that are updated and they should link to fields on your form
+  "where" inputs are not applicable to insert
+  - The service returns the number of rows affected and true/false
 
 3. Using Update
 
-- Create a service description and find the Database Transport - tableName
-- The "assign" inputs must be provided as they will determine the columns that are updated and they should link to fields on your form
-"where" inputs may be used as it limits which records are updated from the table
-- The service returns the number of rows affected and true/false
+  - Create a service description and find the Database Transport - tableName
+  - The "assign" inputs must be provided as they will determine the columns that are updated and they should link to fields on your form
+  "where" inputs may be used as it limits which records are updated from the table
+  - The service returns the number of rows affected and true/false
 
 4. Using Delete
 
-- Create a service description and find the Database Transport - tableName
-- The "assign" inputs are not applicable
-"where" inputs should be used as it limits what is deleted from the table
-- The service returns the number of rows affected and true/false
+  - Create a service description and find the Database Transport - tableName
+  - The "assign" inputs are not applicable
+  "where" inputs should be used as it limits what is deleted from the table
+  - The service returns the number of rows affected and true/false
 
 ## Code Review
 
