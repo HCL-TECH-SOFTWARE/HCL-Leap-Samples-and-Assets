@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DBTransport_ServiceCatalog
+Bundle-SymbolicName: DBTransport_ServiceCatalog
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Service-Component: OSGI-INF/*.xml
+Import-Package: com.ibm.form.nitro.service.model,
+ com.ibm.form.nitro.service.services,
+ com.ibm.form.platform.service.framework.i18n

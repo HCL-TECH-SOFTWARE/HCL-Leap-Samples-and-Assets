@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<serviceDescription>
+  <id>DatabaseTransport-Sample-People</id>
+  <defaultLocale>en-us</defaultLocale>
+  <transportId>com.ibm.support.examples.services.DatabaseTransport.id</transportId>
+  <name xml:lang="en-us">DatabaseTransport - All People Actions</name>
+  <description xml:lang="en-us"></description>
+  <inbound>
+  	<parameters>    	
+  	<parameter>    	
+    		<id>action</id>
+        <name xml:lang="en-us">Action</name>
+        <description xml:lang="en-us">Select, Insert, Update, Delete</description>
+        <type>STRING</type>	
+        <mandatory>true</mandatory>
+       </parameter>
+       <!-- ENTER THE COLUMNS OF THE DATABASE THIS SERVICE IS FOR, THESE WILL BE USED IN THE ASSIGNMENT PART OF THE SQL QUERY-->
+       <!-- IF YOU DON'T SUPPLY ANY PARAMETERS HERE THEN "*" WILL BE USED IN THE SQL QUERY -->
+       <parameter>    	
+    		<id>firstname</id>
+        <name xml:lang="en-us">First Name</name>
+        <description xml:lang="en-us"></description>
+        <type>STRING</type>	
+       </parameter>
+       <parameter>    	
+    		<id>lastname</id>
+        <name xml:lang="en-us">Last Name</name>
+        <description xml:lang="en-us"></description>
+        <type>STRING</type>	
+       </parameter>
+       <parameter>    	
+    		<id>email</id>
+        <name xml:lang="en-us">Email</name>
+        <description xml:lang="en-us"></description>
+        <type>STRING</type>	
+       </parameter>
+       <!-- END OF SEARCHABLE COLUMNS -->
+       <!-- ENTER THE COLUMNS THAT CAN BE USED IN A WHERE CLAUSE -->
+       <!-- IF YOU DON'T WANT TO USE WHERE CLAUSE YOU DO NOT HAVE TO INCLUDE -->
+       <parameter>    	
+    		<id>where_firstname</id>
+        <name xml:lang="en-us">Where First Name</name>
+        <description xml:lang="en-us"></description>
+        <type>STRING</type>	
+       </parameter>
+       <parameter>    	
+    		<id>whereOp_firstname</id>
+        <name xml:lang="en-us">First Name Where Operator</name>
+        <description xml:lang="en-us">Valid values are equals or like.</description>
+        <type>STRING</type>	
+       </parameter>
+       <parameter>    	
+    		<id>where_lastname</id>
+        <name xml:lang="en-us">Where Last Name</name>
+        <description xml:lang="en-us"></description>
+        <type>STRING</type>	
+       </parameter>
+       <parameter>    	
+    		<id>whereOp_lastname</id>
+        <name xml:lang="en-us">LastName Where Operator</name>
+        <description xml:lang="en-us">Valid values are equals or like.</description>
+        <type>STRING</type>	
+       </parameter>
+       <parameter>    	
+    		<id>where_email</id>
+        <name xml:lang="en-us">Where Email</name>
+        <description xml:lang="en-us"></description>
+        <type>STRING</type>	
+       </parameter>
+        <parameter>    	
+    		<id>whereOp_email</id>
+        <name xml:lang="en-us">Email Where Operator</name>
+        <description xml:lang="en-us">Valid values are equals or like.</description>
+        <type>STRING</type>	
+       </parameter>
+       <!-- END COLUMNS FOR WEHERE CLAUSE -->
+       <parameter>    	
+    		<id>whereOperator</id>
+        <name xml:lang="en-us">Where Operator</name>
+        <description xml:lang="en-us">Value can be 'and' or 'or'</description>
+        <type>STRING</type>	
+       </parameter>
+       <parameter>    	
+    		<id>pageNum</id>
+        <name xml:lang="en-us">Page Number</name>
+        <description xml:lang="en-us"></description>
+        <type>STRING</type>	
+       </parameter>
+       <parameter>    	
+    		<id>itemsPerPage</id>
+        <name xml:lang="en-us">Items Per Page</name>
+        <description xml:lang="en-us"></description>
+        <type>STRING</type>	
+       </parameter>
+       <parameter>    	
+    		<id>orderBy</id>
+        <name xml:lang="en-us">Order By</name>
+        <description xml:lang="en-us">Provide the column name which will be used to order the results.</description>
+        <type>STRING</type>	
+       </parameter>
+       <parameter>    	
+    		<id>orderByOp</id>
+        <name xml:lang="en-us">Order By Operator</name>
+        <description xml:lang="en-us">Valid valies are ASC or DESC (case-insensative).</description>
+        <type>STRING</type>	
+       </parameter>
+       </parameters>
+    <serviceMapping>
+    	<constants>
+    		<constant>
+					<id>dbType</id>
+					<!-- DataSource, DB2, MySQL, Oracle, ODBC -->
+					<value>DataSource</value>
+				</constant>
+    		<constant>
+					<id>dbName</id>
+					<value>peopleDB</value>
+				</constant>
+				<constant>
+					<id>tableName</id>
+					<value>PEOPLE</value>
+				</constant>
+				<constant>
+					<id>dbServer</id>
+					<value>l2vm104.canlab.ibm.com</value>
+				</constant>
+				<constant>
+					<id>dbPort</id>
+					<value>50000</value>
+				</constant>
+				<!-- DEPRECATED in favor of WAS Alias -->
+				<!--constant>
+					<id>dbUser</id>
+					<value>user</value>
+				</constant>
+				<constant>
+					<id>dbPassword</id>
+					<value>password</value>
+				</constant-->
+				<constant>
+					<id>WAS-J2CAlias</id>
+					<value>IBM464-PC0DTDP2Node01/peopleDB</value>
+				</constant>
+    	</constants>
+    	<mapping>
+		  	<mapping target="transport:dbName" source="constant:dbName"/>
+		  	<mapping target="transport:tableName" source="constant:tableName"/>
+		  	<mapping target="transport:dbType" source="constant:dbType"/>
+		  	<mapping target="transport:dbServer" source="constant:dbServer"/>
+		  	<mapping target="transport:dbPort" source="constant:dbPort"/>
+		  	<!--mapping target="transport:dbUser" source="constant:dbUser"/>
+		  	<mapping target="transport:dbPassword" source="constant:dbPassword"/-->
+		  	<mapping target="transport:WAS-J2CAlias" source="constant:WAS-J2CAlias"/>
+		  	<mapping target="transport:action" source="parameter:action"/>
+		  	<!-- ADD AN ENTRY HERE FOR EACH COLUMN OF THE TABLE - ALSO LISTED ABOVE -->
+		  	<mapping target="transport:assign_firstname" source="parameter:firstname"/>
+		  	<mapping target="transport:assign_lastname" source="parameter:lastname"/>
+		  	<mapping target="transport:assign_email" source="parameter:email"/>
+		  	<!-- END OF TABLE COLUMNS -->
+		  	<!-- CREATE AN ENTRY FOR EACH COLUMN THAT CAN BE USED IN A "WHERE" CLAUSE -->
+		  	<!-- IF YOU DON'T WANT TO USE WHERE CLAUSE YOU DO NOT HAVE TO INCLUDE -->
+		  	<mapping target="transport:where_lastname" source="parameter:where_lastname"/>
+		  	<mapping target="transport:whereOp_lastname" source="parameter:whereOp_lastname"/>
+		  	<mapping target="transport:where_firstname" source="parameter:where_firstname"/>
+		  	<mapping target="transport:whereOp_firstname" source="parameter:whereOp_firstname"/>
+		  	<mapping target="transport:where_email" source="parameter:where_email"/>
+		  	<mapping target="transport:whereOp_email" source="parameter:whereOp_email"/>
+		  	<!-- END OF WHERE CLAUSE COLUMNS -->
+		  	<mapping target="transport:whereOperator" source="parameter:whereOperator"/>
+		  	
+		  	<mapping target="transport:pageNum" source="parameter:pageNum"/>
+		  	<mapping target="transport:itemsPerPage" source="parameter:itemsPerPage"/>
+		  	<mapping target="transport:orderBy" source="parameter:orderBy"/>
+		  	<mapping target="transport:orderByOp" source="parameter:orderByOp"/>
+		  </mapping>
+    </serviceMapping>
+  </inbound>
+  <outbound>
+  <parameters>
+            <parameter>
+		        <id>response</id>
+		        <name xml:lang="en-us">Response</name>
+		        <description xml:lang="en-us"></description>
+		        <mandatory>false</mandatory>
+		        <type>INTEGER</type>
+		      </parameter>
+		      <parameter>    	
+    		<id>firstname</id>
+        <name xml:lang="en-us">First Name</name>
+        <description xml:lang="en-us"></description>
+        <type>STRING</type>	
+       </parameter>
+       <parameter>    	
+    		<id>lastname</id>
+        <name xml:lang="en-us">Last Name</name>
+        <description xml:lang="en-us"></description>
+        <type>STRING</type>	
+       </parameter>
+       <parameter>    	
+    		<id>email</id>
+        <name xml:lang="en-us">Email</name>
+        <description xml:lang="en-us"></description>
+        <type>STRING</type>	
+       </parameter>
+		      <parameter>
+				<id>queryResults</id>
+				<type>LIST</type>
+				<name xml:lang="en-us">Query Results</name>
+				<description xml:lang="en-us">This will contain the query results if there are any (from a select)</description>
+				<parameters>
+				<!-- need to list all the possible columns that can be returned from the table-->
+				<!-- the problem with this is that it is specific to each table...-->
+				<!-- the only way around this would be to return XML, but then can't map directly to fields -->
+					<parameter>
+						<id>firstname</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">First Name</name>
+						<description xml:lang="en-us"></description>
+					</parameter>
+					<parameter>
+						<id>lastname</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">Last Name</name>
+						<description xml:lang="en-us"></description>
+					</parameter>
+					<parameter>
+						<id>email</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">Email</name>
+						<description xml:lang="en-us"></description>
+					</parameter>
+				</parameters>
+			</parameter>
+			<parameter>
+						<id>rowCount</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">Rows Affected/Count</name>
+						<description xml:lang="en-us"></description>
+					</parameter>
+	</parameters>
+	<serviceMapping>
+        <mapping>
+            <mapping source="transport:success" sourceType="STRING" target="parameter:response" targetType="STRING" />
+            <mapping source="transport:rowsAffected" sourceType="STRING" target="parameter:rowCount" targetType="STRING" />
+            
+            <mapping source="transport:FIRSTNAME" sourceType="STRING" target="parameter:firstname" targetType="STRING" />
+            <mapping source="transport:LASTNAME" sourceType="STRING" target="parameter:lastname" targetType="STRING" />
+            <mapping source="transport:EMAIL" sourceType="STRING" target="parameter:email" targetType="STRING" />
+            <mapping source="transport:queryResults" target="parameter:queryResults">
+            <!-- The transport writes back all the columns but these need to be in the transport so that the -->
+            <!-- form developer can link the outputs to their form -->
+            <!-- The response is dependent on the database, case matters here! If the output is not working then you may
+                 need to enable com.ibm.form.*=finest in the WAS trace and look at the service output to determine the necessary
+                 format.
+                 
+                 For example DB2 returns the columns in upper case, as listed below. -->
+							<mapping source="transport:FIRSTNAME" target="parameter:firstname" />
+							<mapping source="transport:LASTNAME" target="parameter:lastname" />
+							<mapping source="transport:EMAIL" target="parameter:email" />
+						</mapping>
+        </mapping>
+    </serviceMapping>
+  </outbound>
+</serviceDescription>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0"
+ configuration-policy="optional"
+ enabled="true"
+ immediate="true"
+ name="com.ibm.support.services.DBTransportServiceCatalog.service">
+   <implementation class="com.ibm.support.examples.DBTransportServiceCatalog" />
+   <reference bind="setServiceDescriptionBuilderFactory" 
+     cardinality="1..1" 
+     interface="com.ibm.form.nitro.service.services.IServiceDescriptionBuilderFactory"
+     name="ServiceDescriptionBuilderFactory" 
+     policy="static"/>
+   <service>
+     <provide interface="com.ibm.form.nitro.service.services.IServiceCatalog"/>
+   </service>
+</scr:component>
+
