@@ -9,7 +9,6 @@ The example code is provided as a working example of how to connect to and inter
 1. Download the Java code.  Create a java application with in your favorite Java editor (i.e. Rational Application Developer, Eclipse, etc)
 
 SampleMain.java
-
 LeapAPIHelper.jar
 
 2. Download the Sample LEAP Application.  The application was built in 8.6.4.1 and cannot be imported to an older LEAP version.  When you import the application, choose to import with data, it contains a sample record that will be used in the example below.
