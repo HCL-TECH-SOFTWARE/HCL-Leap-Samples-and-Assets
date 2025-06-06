@@ -11,31 +11,31 @@ as seen in the Manager panel.
 
 ## Flags
 
-|Flag|Description|
-|-o|The operation to perform, it can be exportOneToFS, exportListToFS, exportAllToFS, import, delete, upgrade and migrateApp|
-|-ps|The primary FEB server.  For example, http://myserver.server.com/, http://myserver.server.com/, http://myserver.server.com:9081|
-|-u|The username to use when connecting to FEB|
-|-p|The password for the specified user|
-|-ignoreSSL|Flag to bypass SSL when communicating with the primary server. If used then the commType (-ct) is required.|
-|-ct|The communication type (i.e. SSL, TLS, SSL_TLS, TLSv1.2, etc).  Only used when server is HTTPS and Defaults to SSL.|
-|-c|The context of the forms REST API, defaults to "forms-basic".|
-|-ss|The secondary FEB server. For example, http://myserver.server.com/, http://myserver.server.com/, http://myserver.server.com:9081/|
-|-ss_u|The username to use when connecting to FEB|
-|-ss_p|The password for the specified user|
-|-ss_ignoreSSL|Flag to bypass SSL when communicating with the primary server. If used then the commType (-ct) is required.|
-|-ss_ct|The communication type (i.e. SSL, TLS, SSL_TLS, TLSv1.2, etc) for secondary server is specified.|
-|-ss_c|The context of the forms REST API, defaults to "forms-basic".|
-|-f|The path where the files will be exported to or imported from.  This will search all sub directories.  MUST Use forward slashes in the URL.  Supports relative file paths.|
-|-a|The application ID to be exported (only used with exportOneToFS and upgrade operation)|
-|-t|The tags to apply to the application being imported. Comma separated list of tags.|
-|-listPath|The path of the file that contains the list of app ids, the expected format is a simple text file with one application id per line. Used with exportListToFS or delete.|
-|-fik|The cookie value to use for the freedomIdentifyKey|
-|-deploy|This will force the deployment of the imported application|
-|-data|This will include the submission data when importing, exporting or updating|
-|-page|The page number to start with, only used for exportAllToFS.|
-|-debug|This will enable additional debugging for the application|
-|-console|Will ask for all the configuration information in the console rather than passing as command args.|
-|-usage or -help|Shows the help message.|
+
+- -o  The operation to perform, it can be exportOneToFS, exportListToFS, exportAllToFS, import, delete, upgrade and migrateApp
+- -ps The primary FEB server.  For example, http://myserver.server.com/, http://myserver.server.com/, http://myserver.server.com:9081
+- -u  The username to use when connecting to FEB
+- -p  The password for the specified user
+- -ignoreSSL  Flag to bypass SSL when communicating with the primary server. If used then the commType (-ct) is required.
+- -ct The communication type (i.e. SSL, TLS, SSL_TLS, TLSv1.2, etc).  Only used when server is HTTPS and Defaults to SSL.
+- -c  The context of the forms REST API, defaults to "forms-basic".
+- -ss The secondary FEB server. For example, http://myserver.server.com/, http://myserver.server.com/, http://myserver.server.com:9081/
+- -ss_u The username to use when connecting to FEB
+- -ss_p The password for the specified user
+- -ss_ignoreSSL Flag to bypass SSL when communicating with the primary server. If used then the commType (-ct) is required.
+- -ss_ct  The communication type (i.e. SSL, TLS, SSL_TLS, TLSv1.2, etc) for secondary server is specified.
+- -ss_c The context of the forms REST API, defaults to "forms-basic".
+- -f  The path where the files will be exported to or imported from.  This will search all sub directories.  MUST Use forward slashes in the URL.  Supports relative file paths.
+- -a  The application ID to be exported (only used with exportOneToFS and upgrade operation)
+- -t  The tags to apply to the application being imported. Comma separated list of tags.
+- -listPath The path of the file that contains the list of app ids, the expected format is a simple text file with one application id per line. Used with exportListToFS or delete.
+- -fik  The cookie value to use for the freedomIdentifyKey
+- -deploy This will force the deployment of the imported application
+- -data This will include the submission data when importing, exporting or updating
+- -page The page number to start with, only used for exportAllToFS.
+- -debug  This will enable additional debugging for the application
+- -console  Will ask for all the configuration information in the console rather than passing as command args.
+- -usage or -help Shows the help message.
 
 ## Usage
 
