@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<serviceDescription>
+  <id>GetServerTimeTransportSample</id>
+  <defaultLocale>en-us</defaultLocale>
+  <transportId>com.ibm.support.examples.services.GetServerTimeTransport.id</transportId>
+  <name xml:lang="en-us">Get Server Time</name>
+  <description xml:lang="en-us"></description>
+  <inbound>
+  	<parameters>
+    	<parameter>
+    	   <id>format</id>
+           <name xml:lang="en-us">Date/Time Format</name>
+           <description xml:lang="en-us">The format of the date to return. Provide the format that you want the date to be returned (i.e. "HH:mm:ss" or "yyyy-MM-dd" or any other format using the patterns for the SimpleDateFormat.</description>
+           <type>STRING</type>
+       </parameter>
+    </parameters>
+  </inbound>
+  <outbound>
+  	<parameters>
+    	<parameter>
+    	   <id>serverTime</id>
+           <name xml:lang="en-us">Server Time</name>
+           <description xml:lang="en-us">The current time on the server in the format indicated by the format input parameter (default is HH:mm:ss).</description>
+           <type>STRING</type>
+       </parameter>
+    </parameters>
+  </outbound>
+</serviceDescription>
+
