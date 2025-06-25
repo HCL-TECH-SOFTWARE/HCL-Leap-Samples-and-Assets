@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /********************************************************* {COPYRIGHT-TOP} 
+	*** * IBM Confidential * OCO Source Materials * IBM(R) Forms * * (C) Copyright 
+	IBM Corp. 2010, 2013 All Rights Reserved. * * The source code for this program 
+	is not published or otherwise * divested of its trade secrets, irrespective 
+	of what has been * deposited with the U.S. Copyright Office. ********************************************************** 
+	{COPYRIGHT-END} **/ -->
+
+<serviceDescription>
+	<id>user.dynamic.update</id>
+	<defaultLocale>en-us</defaultLocale>
+	<transportId>com.ibm.UserAndGroupInfoTransport.id</transportId>
+	<name xml:lang="en-us">Update Dynamic Users and Groups</name>
+	<description xml:lang="en-us">
+		Update Dynamic Users and Groups for a record
+	</description>
+	<inbound>
+		<parameters>
+			<parameter>
+				<id>appid</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Application UID</name>
+				<description xml:lang="en-us">The UID of the application</description>
+				<mandatory>false</mandatory>
+			</parameter>
+			<parameter>
+				<id>formid</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Form ID</name>
+				<description xml:lang="en-us">The ID of the form (something like F_Form1)</description>
+				<mandatory>false</mandatory>
+			</parameter>
+			<parameter>
+				<id>recordid</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Record UID</name>
+				<description xml:lang="en-us">The UID of the submitted record	</description>
+				<mandatory>false</mandatory>
+			</parameter>
+			<parameter>
+				<id>records.to.update</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Records to Update</name>
+				<description xml:lang="en-us">A list of all the records to update at the same time.</description>
+				<mandatory>false</mandatory>
+				<parameters>
+					<parameter>
+						<id>appid</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">Application UID</name>
+						<description xml:lang="en-us">The UID of the application
+						</description>
+						<mandatory>false</mandatory>
+					</parameter>
+					<parameter>
+						<id>formid</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">Form ID</name>
+						<description xml:lang="en-us">The ID of the form (something like F_Form1)</description>
+						<mandatory>false</mandatory>
+					</parameter>
+					<parameter>
+						<id>recordid</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">Record UID</name>
+						<description xml:lang="en-us">The UID of the submitted record</description>
+						<mandatory>false</mandatory>
+					</parameter>
+					<parameter>
+						<id>role</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">Role Name</name>
+						<description xml:lang="en-us">The name as it appears in the access panel</description>
+						<mandatory>false</mandatory>
+					</parameter>
+				</parameters>
+			</parameter>
+			<parameter>
+				<id>role</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Role Name</name>
+				<description xml:lang="en-us">The name as it appears in the access panel</description>
+				<mandatory>false</mandatory>
+			</parameter>
+			<parameter>
+				<id>users.to.add</id>
+				<type>LIST</type>
+				<name xml:lang="en-us">Add Dynamic Users</name>
+				<description xml:lang="en-us">
+				</description>
+				<mandatory>false</mandatory>
+				<parameters>
+					<parameter>
+						<id>user.id</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">User Id</name>
+						<description xml:lang="en-us">
+						</description>
+					</parameter>
+				</parameters>
+			</parameter>
+			<parameter>
+				<id>users.to.remove</id>
+				<type>LIST</type>
+				<name xml:lang="en-us">Remove Dynamic Users</name>
+				<description xml:lang="en-us">
+				</description>
+				<mandatory>false</mandatory>
+				<parameters>
+					<parameter>
+						<id>user.id</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">User Id</name>
+						<description xml:lang="en-us">
+						</description>
+					</parameter>
+				</parameters>
+			</parameter>
+			<parameter>
+				<id>groups.to.add</id>
+				<type>LIST</type>
+				<name xml:lang="en-us">Add Dynamic Groups</name>
+				<description xml:lang="en-us">
+				</description>
+				<mandatory>false</mandatory>
+				<parameters>
+					<parameter>
+						<id>user.id</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">User Id</name>
+						<description xml:lang="en-us">
+						</description>
+					</parameter>
+				</parameters>
+			</parameter>
+			<parameter>
+				<id>groups.to.remove</id>
+				<type>LIST</type>
+				<name xml:lang="en-us">Remove Dynamic Groups</name>
+				<description xml:lang="en-us">
+				</description>
+				<mandatory>false</mandatory>
+				<parameters>
+					<parameter>
+						<id>user.id</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">User Id</name>
+						<description xml:lang="en-us">
+						</description>
+					</parameter>
+				</parameters>
+			</parameter>
+			<parameter>
+				<id>user.to.add</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Add Dynamic User</name>
+				<description xml:lang="en-us"></description>
+				<mandatory>false</mandatory>
+			</parameter>
+			<parameter>
+				<id>user.to.remove</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Remove Dynamic User</name>
+				<description xml:lang="en-us"></description>
+				<mandatory>false</mandatory>
+			</parameter>
+			<parameter>
+				<id>group.to.add</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Add Dynamic Group</name>
+				<description xml:lang="en-us"></description>
+				<mandatory>false</mandatory>
+			</parameter>
+			<parameter>
+				<id>group.to.remove</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Remove Dynamic Group</name>
+				<description xml:lang="en-us"></description>
+				<mandatory>false</mandatory>
+			</parameter>
+		</parameters>
+
+		<serviceMapping>
+			<constants>
+				<constant>
+					<id>action</id>
+					<value>dynamic.user.group.update</value>
+				</constant>
+			</constants>
+			<mapping>
+				<mapping target="transport:action" source="constant:action" />
+				<mapping target="transport:appid" source="parameter:appid" />
+				<mapping target="transport:formid" source="parameter:formid" />
+				<mapping target="transport:recordid" source="parameter:recordid" />
+				<mapping target="transport:role" source="parameter:role" />
+				<mapping target="transport:records.to.update" source="parameter:records.to.update">
+					<mapping source="transport:appid" target="parameter:appid" />
+					<mapping source="transport:formid" target="parameter:formid" />
+					<mapping source="transport:recordid" target="parameter:recordid" />
+					<mapping source="transport:role" target="parameter:role" />
+				</mapping>
+				<mapping target="transport:user.to.add" source="parameter:user.to.add" />
+				<mapping target="transport:user.to.remove" source="parameter:user.to.remove" />
+				<mapping target="transport:group.to.add" source="parameter:group.to.add" />
+				<mapping target="transport:group.to.remove" source="parameter:group.to.remove" />
+				<mapping target="transport:users.to.add" source="parameter:users.to.add">
+					<mapping source="transport:user.id" target="parameter:user.id" />
+				</mapping>
+				<mapping target="transport:users.to.remove" source="parameter:users.to.remove">
+					<mapping source="transport:user.id" target="parameter:user.id" />
+				</mapping>
+				<mapping target="transport:groups.to.add" source="parameter:groups.to.add">
+					<mapping source="transport:user.id" target="parameter:user.id" />
+				</mapping>
+				<mapping target="transport:groups.to.remove" source="parameter:groups.to.remove">
+					<mapping source="transport:user.id" target="parameter:user.id" />
+				</mapping>
+			</mapping>
+		</serviceMapping>
+	</inbound>
+	<outbound>
+		<parameters>
+			<parameter>
+				<id>errormsg</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Error Message</name>
+				<description xml:lang="en-us">Returns error message if lookup
+					fails
+				</description>
+			</parameter>
+			<parameter>
+				<id>success</id>
+				<type>BOOLEAN</type>
+				<name xml:lang="en-us">Success</name>
+				<description xml:lang="en-us">If the lookup succeeds return true, otherwise false
+				</description>
+			</parameter>
+		</parameters>
+		<serviceMapping>
+			<mapping>
+				<mapping source="transport:errormsg" target="parameter:errormsg"/>
+				<mapping source="transport:success" target="parameter:success"/>
+			</mapping>
+		</serviceMapping>
+	</outbound>
+</serviceDescription>

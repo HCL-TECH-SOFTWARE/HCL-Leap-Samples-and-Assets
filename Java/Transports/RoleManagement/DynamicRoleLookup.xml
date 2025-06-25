@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /********************************************************* {COPYRIGHT-TOP} 
+	*** * IBM Confidential * OCO Source Materials * IBM(R) Forms * * (C) Copyright 
+	IBM Corp. 2010, 2013 All Rights Reserved. * * The source code for this program 
+	is not published or otherwise * divested of its trade secrets, irrespective 
+	of what has been * deposited with the U.S. Copyright Office. ********************************************************** 
+	{COPYRIGHT-END} **/ -->
+
+<serviceDescription>
+	<id>user.dynamic.lookup</id>
+	<defaultLocale>en-us</defaultLocale>
+	<transportId>com.ibm.UserAndGroupInfoTransport.id</transportId>
+	<name xml:lang="en-us">Lookup Dynamic Users and Groups</name>
+	<description xml:lang="en-us">
+		Lookup Dynamic Users and Groups
+	</description>
+	<inbound>
+		<parameters>
+			<parameter>
+				<id>appid</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Application UID</name>
+				<description xml:lang="en-us">The UID of the application
+				</description>
+				<mandatory>true</mandatory>
+			</parameter>
+			<parameter>
+				<id>formid</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Form ID</name>
+				<description xml:lang="en-us">The ID of the form (something like
+					F_Form1)</description>
+				<mandatory>true</mandatory>
+			</parameter>
+			<parameter>
+				<id>recordid</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Record UID</name>
+				<description xml:lang="en-us">The UID of the submitted record
+				</description>
+				<mandatory>true</mandatory>
+			</parameter>
+			<parameter>
+				<id>role</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Role Name</name>
+				<description xml:lang="en-us">The name as it appears in the
+					access panel</description>
+				<mandatory>true</mandatory>
+			</parameter>
+			<parameter>
+				<id>type</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Type</name>
+				<description xml:lang="en-us">Determines if looking at an open role or a closed role.  Possible values are "open" and "closed" default is "closed"</description>
+				<mandatory>true</mandatory>
+			</parameter>
+		</parameters>
+
+		<serviceMapping>
+			<constants>
+				<constant>
+					<id>action</id>
+					<value>dynamic.user.group.lookup</value>
+				</constant>
+			</constants>
+			<mapping>
+				<mapping target="transport:action" source="constant:action" />
+				<mapping target="transport:appid" source="parameter:appid" />
+				<mapping target="transport:formid" source="parameter:formid" />
+				<mapping target="transport:recordid" source="parameter:recordid" />
+				<mapping target="transport:role" source="parameter:role" />
+				<mapping target="transport:type" source="parameter:type" />
+			</mapping>
+		</serviceMapping>
+
+
+	</inbound>
+	<outbound>
+		<parameters>
+			<parameter>
+				<id>userlist</id>
+				<type>LIST</type>
+				<name xml:lang="en-us">Dynamic Users</name>
+				<description xml:lang="en-us">
+				</description>
+				<parameters>
+					<parameter>
+						<id>user.id</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">User Id</name>
+						<description xml:lang="en-us">
+						</description>
+					</parameter>
+					<parameter>
+						<id>user.name</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">User Name</name>
+						<description xml:lang="en-us">
+						</description>
+					</parameter>
+				</parameters>
+			</parameter>
+			<parameter>
+				<id>grouplist</id>
+				<type>LIST</type>
+				<name xml:lang="en-us">Dynamic Groups</name>
+				<description xml:lang="en-us">
+				</description>
+				<parameters>
+					<parameter>
+						<id>group.id</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">Group Id</name>
+						<description xml:lang="en-us">
+						</description>
+					</parameter>
+					<parameter>
+						<id>group.name</id>
+						<type>STRING</type>
+						<name xml:lang="en-us">Group Name</name>
+						<description xml:lang="en-us">
+						</description>
+					</parameter>
+				</parameters>
+			</parameter>
+			<parameter>
+				<id>errormsg</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Error Message</name>
+				<description xml:lang="en-us">Returns error message if lookup fails</description>
+			</parameter>
+			<parameter>
+				<id>success</id>
+				<type>BOOLEAN</type>
+				<name xml:lang="en-us">Success</name>
+				<description xml:lang="en-us">If the lookup succeeds return true, otherwise false
+				</description>
+			</parameter>
+		</parameters>
+		<serviceMapping>
+			<mapping>
+				<mapping source="transport:userlist" target="parameter:userlist">
+					<mapping source="transport:user.id" target="parameter:user.id" />
+					<mapping source="transport:user.name" target="parameter:user.name" />
+				</mapping>
+				<mapping source="transport:grouplist" target="parameter:grouplist">
+					<mapping source="transport:group.id" target="parameter:group.id" />
+					<mapping source="transport:group.name" target="parameter:group.name" />
+				</mapping>
+				<mapping source="transport:errormsg" target="parameter:errormsg"/>
+				<mapping source="transport:success" target="parameter:success"/>
+			</mapping>
+		</serviceMapping>
+	</outbound>
+</serviceDescription>

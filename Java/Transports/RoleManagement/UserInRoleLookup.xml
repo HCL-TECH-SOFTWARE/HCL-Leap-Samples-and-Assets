@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /********************************************************* {COPYRIGHT-TOP} 
+	*** * IBM Confidential * OCO Source Materials * IBM(R) Forms * * (C) Copyright 
+	IBM Corp. 2010, 2013 All Rights Reserved. * * The source code for this program 
+	is not published or otherwise * divested of its trade secrets, irrespective 
+	of what has been * deposited with the U.S. Copyright Office. ********************************************************** 
+	{COPYRIGHT-END} **/ -->
+
+<serviceDescription>
+	<id>user.inrole.lookup</id>
+	<defaultLocale>en-us</defaultLocale>
+	<transportId>com.ibm.UserAndGroupInfoTransport.id</transportId>
+	<name xml:lang="en-us">Lookup User In Role</name>
+	<description xml:lang="en-us">
+		Lookup to see if the current user is
+		in the specified role
+	</description>
+	<inbound>
+		<parameters>
+			<parameter>
+				<id>appid</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Application UID</name>
+				<description xml:lang="en-us">The UID of the application
+				</description>
+				<mandatory>true</mandatory>
+			</parameter>
+			<parameter>
+				<id>formid</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Form ID</name>
+				<description xml:lang="en-us">The ID of the form (something like
+					F_Form1)</description>
+				<mandatory>true</mandatory>
+			</parameter>
+			<parameter>
+				<id>recordid</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Record UID (Optional)</name>
+				<description xml:lang="en-us">The UID of the submitted record,
+					which will be required to determine dynamic user and groups
+				</description>
+				<mandatory>false</mandatory>
+			</parameter>
+			<parameter>
+				<id>role</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Role Name</name>
+				<description xml:lang="en-us">The name as it appears in the
+					access panel</description>
+				<mandatory>true</mandatory>
+			</parameter>
+		</parameters>
+
+		<serviceMapping>
+			<constants>
+				<constant>
+					<id>action</id>
+					<value>inrole.lookup</value>
+				</constant>
+			</constants>
+			<mapping>
+				<mapping target="transport:action" source="constant:action" />
+				<mapping target="transport:appid" source="parameter:appid" />
+				<mapping target="transport:formid" source="parameter:formid" />
+				<mapping target="transport:recordid" source="parameter:recordid" />
+				<mapping target="transport:role" source="parameter:role" />
+			</mapping>
+		</serviceMapping>
+
+
+	</inbound>
+	<outbound>
+		<parameters>
+			<parameter>
+				<id>inrole</id>
+				<type>BOOLEAN</type>
+				<name xml:lang="en-us">User In Role</name>
+				<description xml:lang="en-us">True if the user is in the role.
+					Will be false if the lookup fails
+				</description>
+			</parameter>
+			<parameter>
+				<id>errormsg</id>
+				<type>STRING</type>
+				<name xml:lang="en-us">Error Message</name>
+				<description xml:lang="en-us">Returns error message if lookup
+					fails
+				</description>
+			</parameter>
+			<parameter>
+				<id>success</id>
+				<type>BOOLEAN</type>
+				<name xml:lang="en-us">Success</name>
+				<description xml:lang="en-us">If the lookup succeeds return
+					true, otherwise false
+				</description>
+			</parameter>
+		</parameters>
+		<serviceMapping>
+			<mapping>
+				<mapping source="transport:inrole" target="parameter:inrole" />
+				<mapping source="transport:errormsg" target="parameter:errormsg" />
+				<mapping source="transport:success" target="parameter:success" />
+			</mapping>
+		</serviceMapping>
+	</outbound>
+</serviceDescription>
