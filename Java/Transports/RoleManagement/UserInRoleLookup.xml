@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- /********************************************************* {COPYRIGHT-TOP} 
-	*** * IBM Confidential * OCO Source Materials * IBM(R) Forms * * (C) Copyright 
-	IBM Corp. 2010, 2013 All Rights Reserved. * * The source code for this program 
-	is not published or otherwise * divested of its trade secrets, irrespective 
-	of what has been * deposited with the U.S. Copyright Office. ********************************************************** 
-	{COPYRIGHT-END} **/ -->
-
 <serviceDescription>
 	<id>user.inrole.lookup</id>
 	<defaultLocale>en-us</defaultLocale>
