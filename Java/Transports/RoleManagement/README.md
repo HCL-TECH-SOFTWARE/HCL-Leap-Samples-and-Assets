@@ -4,9 +4,9 @@ This custom transport and related services enable an application author to dynam
 
 The functions are:
 
-**DynamicRoleLookup** - Returns the id's of the user(s) or group(s) for the specified role. The ID is the configured log-in property for FEB. For example if your users log-in with an email address then the id will be the email address.
+**DynamicRoleLookup** - Returns the id's of the user(s) or group(s) for the specified role. The ID is the configured log-in property for Leap. For example if your users log-in with an email address then the id will be the email address.
 
-**DynamicRoleUpdate** - Adds the user(s) or group(s) to the specified role. The function leverages existing components of FEB. It queries the FEB USER table, if the user cannot be found then it queries the configured federated repository and if found creates a record in the USERS table.
+**DynamicRoleUpdate** - Adds the user(s) or group(s) to the specified role. The function leverages existing components of Leap. It queries the Leap USER table, if the user cannot be found then it queries the configured federated repository and if found creates a record in the USERS table.
 
 *Limitation* - Querying the federated repository for valid groups returns an error. Therefore if the group does not already exist in the GROUPS table then you will be unable to add it to a role.
 
@@ -18,15 +18,15 @@ The functions are:
 
 **action**
 
-The function to perform. Valid values are “dynamic.user.group.lookup”, “inrole.lookup”, “dynamic.user.group.update”
+The function to perform. Valid values are "dynamic.user.group.lookup", "inrole.lookup", and "dynamic.user.group.update".
 
 **appid**
 
-The id of the application. You can either hard-code it in the service description or you can retrieve this programmatically in your FEB application by using app.getUID();
+The id of the application. You can either hard-code it in the service description or you can retrieve this programmatically in your Leap application by using app.getUID();
 
 **formid**
 
-The id of the form. You can either hard-code it in the service description or you can retrieve this programmatically in your FEB application by using form.getId();
+The id of the form. You can either hard-code it in the service description or you can retrieve this programmatically in your Leap application by using form.getId();
 
 **recordid**
 
@@ -53,8 +53,8 @@ Boolean value indicating the function was successful or not.
 
 **type**
 
-The role type.  Valid values are "open" or "closed", defaults to "open".   Values are case-insensitive in v1.3.
-Output Parameters
+The role type.  Valid values are "open" or "closed", defaults to "open".   Values are case-insensitive.
+
 
 ### Output Parameters
 
